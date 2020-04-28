@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 echo Was möchtest du tun?
 echo "1.)Apache neustarten"
 echo "2.)Seite deaktiveren"
@@ -7,14 +9,12 @@ echo "3.)Seite aktiveren"
 echo "4.)Seite wechseln"
 echo "5.)Rebooten"
 read eingabe
-deactivateSite(){
-	read siteName
-}
 
 if [ $eingabe == 1 ]
 then
 	sudo systemctl restart apache2;
 	clear;
+	echo Apache erfolgreich neugestartet
 
 elif [ $eingabe == 2 ]
 then
@@ -22,6 +22,7 @@ then
 	sudo a2dissite $conf;
 	sudo systemctl restart apache2;
 	clear;
+	echo Site wurde erfolgreich deaktiviert
 
 elif [ $eingabe == 3 ]
 then
@@ -30,6 +31,7 @@ then
 	sudo a2ensite $siteToActivate;
 	sudo systemctl restart apache2;
 	clear;
+	echo Site wurde erfolgreich aktiviert
 
 elif [ $eingabe == 4 ]
 then
@@ -41,6 +43,7 @@ then
 	sudo a2ensite $siteChangeActivate;
 	sudo systemctl restart apache2;
 	clear;
+	echo Seitenwechsel erfolgreich
 elif [ $eingabe == 5 ]
 then
 	echo "Sicher neustarten?(Press enter...)"
