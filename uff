@@ -7,7 +7,8 @@ echo "1.)Apache neustarten"
 echo "2.)Seite deaktiveren"
 echo "3.)Seite aktiveren"
 echo "4.)Seite wechseln"
-echo "5.)Rebooten"
+echo "5.)Seite erstellen"
+echo "6.)Rebooten"
 read eingabe
 
 if [ $eingabe == 1 ]
@@ -45,6 +46,25 @@ then
 	clear;
 	echo Seitenwechsel erfolgreich
 elif [ $eingabe == 5 ]
+then
+	echo "Wie lautet der Site Ordner?"
+        read configFileName
+	configFile="
+		<VirtualHost *:80>\n
+		 DocumentRoot /var/www/html/$configFileName\n
+		 <Directory /var/www/html/$configFileName>\n
+		  Options Indexes FollowSymLinks MultiViews\n
+		  AllowOverride All\n
+		 </Directory>\n
+		</VirtualHost>\n";
+		echo -e $configFile | sudo tee -a /etc/apache2/sites-available/$configFileName.conf
+
+#	echo $configFile | sudo tee -a /etc/apache2/sites-available/$configFileName.conf
+
+		sudo a2ensite $configFileName.conf;
+		sudo systemctl restart apache2;
+
+elif [ $eingabe == 6 ]
 then
 	echo "Sicher neustarten?(Press enter...)"
 	sudo reboot;
