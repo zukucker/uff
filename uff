@@ -19,6 +19,8 @@ then
 
 elif [ $eingabe == 2 ]
 then
+	echo "Welche Seite möchten Sie deaktivieren"
+	ls -la /etc/apache2/sites-available/
 	read conf;
 	sudo a2dissite $conf;
 	sudo systemctl restart apache2;
@@ -28,6 +30,7 @@ then
 elif [ $eingabe == 3 ]
 then
 	echo "Welche Seite aktiveren"
+	ls -la /etc/apache2/sites-available/
 	read siteToActivate;
 	sudo a2ensite $siteToActivate;
 	sudo systemctl restart apache2;
@@ -37,9 +40,11 @@ then
 elif [ $eingabe == 4 ]
 then
 	echo "Welche Seite deaktivieren?"
+	ls -la /etc/apache2/sites-available/
 	read siteChangeDeactivate;
 	sudo a2dissite $siteChangeDeactivate;
 	echo "Welche Seite aktivieren?"
+	ls -la /etc/apache2/sites-available/
 	read siteChangeActivate;
 	sudo a2ensite $siteChangeActivate;
 	sudo systemctl restart apache2;
